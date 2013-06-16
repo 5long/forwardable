@@ -16,6 +16,8 @@ setup(
         'forwardable',
         'forwardable.test',
     ],
+    package_data={'': ['LICENSE', 'README.rst', 'CHANGELOG.rst']},
+    include_package_data=True,
     license="MIT",
     test_suite="forwardable.test",
     classifiers=[
