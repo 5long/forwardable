@@ -1,3 +1,8 @@
+* 0.2.0
+
+  - Support set/delattr
+  - Docstrings for the module and its functions
+
 * 0.1.1
 
   - Include LICENSE and friends as package data
