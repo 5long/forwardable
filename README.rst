@@ -4,6 +4,12 @@ Forwardable
 Utility for easy object composition via delegation. Roughly ported from
 Ruby's forwardable_ standard library.
 
+Requirements
+------------
+
+Python 2.7 or 3.3 w/ standard library. Might work on other version of
+Python, too.
+
 Installation
 ------------
 

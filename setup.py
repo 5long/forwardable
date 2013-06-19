@@ -27,5 +27,6 @@ setup(
         'Topic :: Software Development :: Code Generators',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.3',
     ]
 )
