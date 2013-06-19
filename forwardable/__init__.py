@@ -1,3 +1,20 @@
+"""
+Easy delegation definition. A quick example:
+
+    from forwardable import forwardable
+
+    @forwardable() # Note the () here, which is required.
+    class Foo(object):
+        def_delegators('bar', ('add', '__len__'))
+
+        def __init__(self)
+            self.bar = set()
+
+    foo = Foo()
+    foo.add(1) # Delegates to foo.bar.add()
+    assert len(foo) == 1
+"""
+
 __version__ = '0.1.1'
 
 __all__ = ["forwardable", "def_delegator", "def_delegators"]
@@ -9,6 +26,13 @@ class NotCalledInClassScope(Exception): pass
 class WrongDecoratorSyntax(Exception): pass
 
 def def_delegator(wrapped, attr_name, _call_stack_depth=1):
+    """
+    Define a property ``attr_name`` in the current class scope which
+    forwards accessing of ``self.<attr_name>`` to property
+    ``self.<wrapped>.<attr_name>``.
+
+    Must be called in a class scope.
+    """
     frame = sys._getframe(_call_stack_depth)
 
     if not looks_like_class_frame(frame):
@@ -31,6 +55,12 @@ def def_delegator(wrapped, attr_name, _call_stack_depth=1):
 
 
 def def_delegators(wrapped, attrs):
+    """
+    Define multiple delegations for a single delegatee. Roughly equivalent
+    to def_delegator() in a for-loop.
+
+    Must be called in a class scope.
+    """
     for a in attrs:
         def_delegator(wrapped, a, _call_stack_depth=2)
 
@@ -56,6 +86,14 @@ def cleanup(scope):
 
 
 def forwardable():
+    """
+    A class decorator which makes def_delegator() and def_delegators()
+    available in the class scope.
+
+    This decorator must be used in the form of `@forwardable()`, instead of
+    `@forwardable`. And it must be called in a module scope (which should be
+    the case for most common class definitions).
+    """
     frame = sys._getframe(1)
     inject(frame)
 
