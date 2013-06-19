@@ -17,8 +17,14 @@ def def_delegator(wrapped, attr_name, _call_stack_depth=1):
     def getter(self):
         return getattr(getattr(self, wrapped), attr_name)
 
+    def setter(self, value):
+        return setattr(getattr(self, wrapped), attr_name, value)
+
+    def deleter(self):
+        return delattr(getattr(self, wrapped), attr_name)
+
     scope = frame.f_locals
-    scope[attr_name] = property(getter)
+    scope[attr_name] = property(getter, setter, deleter)
 
 
 def def_delegators(wrapped, attrs):

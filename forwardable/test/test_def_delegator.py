@@ -3,6 +3,10 @@ from unittest import TestCase
 from forwardable import (def_delegator, def_delegators,
         NotCalledInClassScope)
 
+class Object(object):
+    pass
+
+
 class TestForwardable(TestCase):
     def test_def_delegator(self):
         class Foo(object):
@@ -37,3 +41,39 @@ class TestForwardable(TestCase):
                 self.s = set()
 
         self.assertEqual(len(Foo()), 0)
+
+
+    def test_property_deleting(self):
+        class Foo(object):
+            def_delegator("bar", "baz")
+
+        foo = Foo()
+        foo.bar = Object()
+        foo.bar.baz = 42
+
+        del foo.baz
+        self.assertFalse(hasattr(foo, 'baz'))
+
+
+    def test_hasattr(self):
+        class Foo(object):
+            def_delegator("bar", "baz")
+
+        foo = Foo()
+        foo.bar = Object()
+
+        self.assertFalse(hasattr(foo, 'baz'))
+
+        foo.bar.baz = 42
+        self.assertTrue(hasattr(foo, 'baz'))
+
+
+    def test_setattr(self):
+        class Foo(object):
+            def_delegator("bar", "baz")
+
+        foo = Foo()
+        foo.bar = Object()
+        foo.baz = 42
+
+        self.assertTrue(foo.bar.baz, 42)
