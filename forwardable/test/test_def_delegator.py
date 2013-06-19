@@ -16,7 +16,7 @@ class TestForwardable(TestCase):
         foo = Foo()
 
         self.assertTrue(hasattr(foo, "keys"))
-        self.assertEqual(foo.keys(), ['key'])
+        self.assertEqual(list(foo.keys()), ['key'])
 
 
     def test_def_delegators(self):
@@ -26,8 +26,8 @@ class TestForwardable(TestCase):
 
         foo = Foo()
 
-        self.assertEqual(foo.keys(), ['key'])
-        self.assertEqual(foo.values(), [42])
+        self.assertEqual(list(foo.keys()), ['key'])
+        self.assertEqual(list(foo.values()), [42])
 
     def test_called_in_non_class_scope(self):
         with self.assertRaises(NotCalledInClassScope):

@@ -19,9 +19,9 @@ class TestForwardable(TestCase):
     def test_inject_def_delegator(self):
         foo = Foo()
 
-        self.assertEqual(foo.keys(), ['key'])
-        self.assertEqual(foo.values(), [42])
-        self.assertEqual(foo.items(), [('key', 42)])
+        self.assertEqual(list(foo.keys()), ['key'])
+        self.assertEqual(list(foo.values()), [42])
+        self.assertEqual(list(foo.items()), [('key', 42)])
 
         self.assertFalse(hasattr(foo, "get")) 
 
