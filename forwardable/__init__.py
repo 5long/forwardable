@@ -14,14 +14,17 @@ def def_delegator(wrapped, attr_name, _call_stack_depth=1):
     if not looks_like_class_frame(frame):
         raise NotCalledInClassScope
 
+    def get_wrapped_obj(self):
+        return getattr(self, wrapped)
+
     def getter(self):
-        return getattr(getattr(self, wrapped), attr_name)
+        return getattr(get_wrapped_obj(self), attr_name)
 
     def setter(self, value):
-        return setattr(getattr(self, wrapped), attr_name, value)
+        return setattr(get_wrapped_obj(self), attr_name, value)
 
     def deleter(self):
-        return delattr(getattr(self, wrapped), attr_name)
+        return delattr(get_wrapped_obj(self), attr_name)
 
     scope = frame.f_locals
     scope[attr_name] = property(getter, setter, deleter)
