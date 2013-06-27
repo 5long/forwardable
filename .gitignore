@@ -1,3 +1,4 @@
 /MANIFEST
 /dist
 *.egg-info
+*.py[co]
