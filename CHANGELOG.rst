@@ -1,3 +1,7 @@
+* 0.3.1
+
+  - Various minor fixes in README.rst
+
 * 0.3.0
 
   - Support attr plucking.
