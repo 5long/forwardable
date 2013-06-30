@@ -1,3 +1,7 @@
+* 0.3.0
+
+  - Support attr plucking.
+
 * 0.2.1
 
   - Update changelog for 0.2.0 (duh)
