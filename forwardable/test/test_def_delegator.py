@@ -77,3 +77,15 @@ class TestForwardable(TestCase):
         foo.baz = 42
 
         self.assertTrue(foo.bar.baz, 42)
+
+
+    def test_attr_plucking(self):
+        class Foo(object):
+            def_delegator("bar.baz", "qoox")
+
+        foo = Foo()
+        foo.bar = Object()
+        foo.bar.baz = Object()
+        foo.bar.baz.qoox = 42
+
+        self.assertEqual(foo.qoox, 42)

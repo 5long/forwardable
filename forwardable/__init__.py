@@ -20,6 +20,7 @@ __version__ = '0.2.1'
 __all__ = ["forwardable", "def_delegator", "def_delegators"]
 
 import sys
+from operator import attrgetter
 
 class NotCalledInModuleScope(Exception): pass
 class NotCalledInClassScope(Exception): pass
@@ -38,8 +39,7 @@ def def_delegator(wrapped, attr_name, _call_stack_depth=1):
     if not looks_like_class_frame(frame):
         raise NotCalledInClassScope
 
-    def get_wrapped_obj(self):
-        return getattr(self, wrapped)
+    get_wrapped_obj = attrgetter(wrapped)
 
     def getter(self):
         return getattr(get_wrapped_obj(self), attr_name)
