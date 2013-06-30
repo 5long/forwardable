@@ -95,6 +95,12 @@ If you hesitate to utilize this injection magic, just explicitly say
 ``from forwardable import def_delegator, def_delegators``, use them in
 a class definition and you'll be fine.
 
+Links
+-----
+
+* Source Repository: https://github.com/5long/forwardable
+* Feedback: https://github.com/5long/forwardable/issues
+
 License
 -------
 
