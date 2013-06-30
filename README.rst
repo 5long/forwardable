@@ -26,20 +26,8 @@ The ``@forwardable.forwardable()`` decorator enables you to use
 
 Use ``def_delegators()`` to define multiple attr forwarding:
 
-.. code-block:: python
-
-  from forwardable import forwardable
-
-  @forwardable() # Note the () here, which is required.
-  class Foo(object):
-      def_delegators('bar', ('add', '__len__'))
-
-      def __init__(self)
-          self.bar = set()
-
-  foo = Foo()
-  foo.add(1) # Delegates to foo.bar.add()
-  assert len(foo) == 1 # Magic methods works, too
+.. include:: example/common_use_case.py
+   :code: python
 
 Easy, heh?
 
@@ -49,18 +37,8 @@ Define a Single Forwarding
 In case you only need to delegate one method to a delegatee, just
 use ``def_delegator``:
 
-.. code-block:: python
-
-  from forwardable import forwardable
-
-  @forwardable()
-  class Foo(object):
-      def_delegator('bar', '__len__')
-
-      def __init__(self)
-          self.bar = set()
-
-  assert len(Foo()) == 0
+.. include:: example/def_delegator.py
+   :code: python
 
 And it should work just fine. Actually, ``def_delegators()`` calls
 ``def_delegator()`` under the hood.
@@ -68,19 +46,8 @@ And it should work just fine. Actually, ``def_delegators()`` calls
 Plucking
 ~~~~~~~~
 
-.. code-block:: python
-
-  from forwardable import forwardable
-
-  @forwardable
-  class MyDict(object):
-      def_delegator('dct.get', '__call__')
-      def __init__(self):
-          self.dct = {'foo', 42}
-
-  d = MyDict()
-  # Equivlant to d.dct.get('foo')
-  assert d('foo') == 42
+.. include:: example/plucking.py
+   :code: python
 
 Less Magical Usage
 ~~~~~~~~~~~~~~~~~~
