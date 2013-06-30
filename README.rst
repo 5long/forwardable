@@ -18,8 +18,13 @@ Installation
 Usage
 -----
 
+Most Common Use Case
+~~~~~~~~~~~~~~~~~~~~
+
 The ``@forwardable.forwardable()`` decorator enables you to use
-``def_delegator`` in a class definition block.
+``def_delegator()`` and ``def_delegators()`` in a class definition block.
+
+Use ``def_delegators()`` to define multiple attr forwarding:
 
 .. code-block:: python
 
@@ -34,9 +39,12 @@ The ``@forwardable.forwardable()`` decorator enables you to use
 
   foo = Foo()
   foo.add(1) # Delegates to foo.bar.add()
-  assert len(foo) == 1
+  assert len(foo) == 1 # Magic methods works, too
 
 Easy, heh?
+
+Define a Single Forwarding
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In case you only need to delegate one method to a delegatee, just
 use ``def_delegator``:
@@ -54,12 +62,36 @@ use ``def_delegator``:
 
   assert len(Foo()) == 0
 
-And it should work just fine.
+And it should work just fine. Actually, ``def_delegators()`` calls
+``def_delegator()`` under the hood.
+
+Plucking
+~~~~~~~~
+
+.. code-block:: python
+
+  from forwardable import forwardable
+
+  @forwardable
+  class MyDict(object):
+      def_delegator('dct.get', '__call__')
+      def __init__(self):
+          self.dct = {'foo', 42}
+
+  d = MyDict()
+  # Equivlant to d.dct.get('foo')
+  assert d('foo') == 42
 
 Less Magical Usage
 ~~~~~~~~~~~~~~~~~~
 
-If you hesitate to touch the ``@forwardable()`` injection magic, just
+The ``@forwardable()`` decorator injects ``def_delegator{,s}()`` into the
+module scope temorarily, which is why you don't have to import them
+explicitly. This is admittedly magical but discourages the usage
+of ``import *``. And it's always nice to type less characters whenever
+unnecessary.
+
+If you hesitate to utilize this injection magic, just explicitly say
 ``from forwardable import def_delegator, def_delegators``, use them in
 a class definition and you'll be fine.
 
