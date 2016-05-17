@@ -19,6 +19,11 @@ __version__ = '0.4.0'
 
 __all__ = ["forwardable", "def_delegator", "def_delegators"]
 
+try:
+    basestring
+except NameError:
+    basestring = (str, bytes)
+
 import sys
 from operator import attrgetter
 
