@@ -1,3 +1,7 @@
+* 0.4.1
+
+  - Fix basestring isssue for Py3K
+
 * 0.4.0
 
   - ``def_delegators`` now accepts string form for 2nd argument.
