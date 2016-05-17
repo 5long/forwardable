@@ -5,7 +5,7 @@ Easy delegation definition. A quick example:
 
     @forwardable() # Note the () here, which is required.
     class Foo(object):
-        def_delegators('bar', ('add', '__len__'))
+        def_delegators('bar', 'add, __len__')
 
         def __init__(self)
             self.bar = set()
@@ -58,6 +58,14 @@ def def_delegators(wrapped, attrs):
     """
     Define multiple delegations for a single delegatee. Roughly equivalent
     to def_delegator() in a for-loop.
+
+    The ``attrs`` argument can be an iterable of attribute names, or
+    a comma-and-spaces separated string of attribute names. The following
+    form works identically:
+
+    def_delegators(wrapped, ('foo', 'bar')) # Tuple of attribute names
+    def_delegators(wrapped, 'foo bar')      # Separated by space
+    def_delegators(wrapped, 'foo, bar')     # With optional comma
 
     Must be called in a class scope.
     """

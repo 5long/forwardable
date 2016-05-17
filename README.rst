@@ -32,7 +32,7 @@ Use ``def_delegators()`` to define multiple attr forwarding:
 
     @forwardable() # Note the () here, which is required.
     class Foo(object):
-        def_delegators('bar', ('add', '__len__'))
+        def_delegators('bar', 'add, __len__')
 
         def __init__(self):
             self.bar = set()
