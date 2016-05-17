@@ -61,6 +61,7 @@ def def_delegators(wrapped, attrs):
 
     Must be called in a class scope.
     """
+    attrs = split_attrs(attrs) if isinstance(attrs, basestring) else attrs
     for a in attrs:
         def_delegator(wrapped, a, _call_stack_depth=2)
 
@@ -71,6 +72,9 @@ def looks_like_class_frame(frame):
 
 def is_module_frame(frame):
     return frame.f_globals is frame.f_locals
+
+def split_attrs(attrs):
+    return attrs.replace(',', ' ').split()
 
 def inject(frame):
     if not is_module_frame(frame):
