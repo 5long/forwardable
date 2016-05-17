@@ -19,16 +19,6 @@ class TestForwardable(TestCase):
         self.assertEqual(list(foo.keys()), ['key'])
 
 
-    def test_def_delegators(self):
-        class Foo(object):
-            def_delegators("dct", ["keys", "values"])
-            dct = {'key': 42}
-
-        foo = Foo()
-
-        self.assertEqual(list(foo.keys()), ['key'])
-        self.assertEqual(list(foo.values()), [42])
-
     def test_called_in_non_class_scope(self):
         with self.assertRaises(NotCalledInClassScope):
             def_delegator("what", "ever")
