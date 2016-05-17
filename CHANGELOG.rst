@@ -1,3 +1,8 @@
+* 0.4.0
+
+  - ``def_delegators`` now accepts string form for 2nd argument.
+    Just like ``collections.namedtuple`` does.
+
 * 0.3.1
 
   - Various minor fixes in README.rst

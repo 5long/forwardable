@@ -15,7 +15,7 @@ Easy delegation definition. A quick example:
     assert len(foo) == 1
 """
 
-__version__ = '0.3.1'
+__version__ = '0.4.0'
 
 __all__ = ["forwardable", "def_delegator", "def_delegators"]
 
