@@ -86,7 +86,7 @@ Less Magical Usage
 ~~~~~~~~~~~~~~~~~~
 
 The ``@forwardable()`` decorator injects ``def_delegator{,s}`` into the
-module scope temorarily, which is why you don't have to import them
+module scope temporarily, which is why you don't have to import them
 explicitly. This is admittedly magical but discourages the usage
 of ``import *``. And it's always nice to type less characters whenever
 unnecessary.
