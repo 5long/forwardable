@@ -12,6 +12,13 @@ class Foo(object):
     def_delegators('dct', ['values', 'items'])
     dct = {'key': 42}
 
+@forwardable()
+class DocFoo(object):
+    assert "def_delegator" not in locals()
+    def_delegator('dct', 'keys', obj_class=dict)
+    def_delegators('dct', ['values', 'items'], obj_class=dict)
+    dct = {'key': 42}
+
 
 assert "def_delegator" not in locals()
 
@@ -23,7 +30,24 @@ class TestForwardable(TestCase):
         self.assertEqual(list(foo.values()), [42])
         self.assertEqual(list(foo.items()), [('key', 42)])
 
-        self.assertFalse(hasattr(foo, "get")) 
+        self.assertFalse(hasattr(foo, "get"))
+
+    def test_inject_with_doc(self):
+        self.assertTrue(Foo.keys.__doc__ is None)
+
+        foo = DocFoo()
+
+        # Test normal functionality
+        self.assertEqual(list(foo.keys()), ['key'])
+        self.assertEqual(list(foo.values()), [42])
+        self.assertEqual(list(foo.items()), [('key', 42)])
+
+        self.assertFalse(hasattr(foo, "get"))
+
+        # Check that docstrings of class is populated
+        self.assertTrue(DocFoo.keys.__doc__ is not None)
+        self.assertTrue(DocFoo.values.__doc__ is not None)
+        self.assertTrue(DocFoo.items.__doc__ is not None)
 
     def test_in_non_module_scope(self):
         with self.assertRaises(NotCalledInModuleScope):
