@@ -15,8 +15,8 @@ class Foo(object):
 @forwardable()
 class DocFoo(object):
     assert "def_delegator" not in locals()
-    def_delegator('dct', 'keys', obj_class=dict)
-    def_delegators('dct', ['values', 'items'], obj_class=dict)
+    def_delegator('dct', 'keys', doc_from_class=dict)
+    def_delegators('dct', ['values', 'items'], doc_from_class=dict)
     dct = {'key': 42}
 
 
