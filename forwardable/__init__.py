@@ -31,7 +31,7 @@ class NotCalledInModuleScope(Exception): pass
 class NotCalledInClassScope(Exception): pass
 class WrongDecoratorSyntax(Exception): pass
 
-def def_delegator(wrapped, attr_name, _call_stack_depth=1, doc_from_class=None):
+def def_delegator(wrapped, attr_name, doc_from_class=None, _call_stack_depth=1):
     """
     Define a property ``attr_name`` in the current class scope which
     forwards accessing of ``self.<attr_name>`` to property
@@ -78,7 +78,7 @@ def def_delegators(wrapped, attrs, doc_from_class=None):
     """
     attrs = split_attrs(attrs) if isinstance(attrs, basestring) else attrs
     for a in attrs:
-        def_delegator(wrapped, a, _call_stack_depth=2, doc_from_class=doc_from_class)
+        def_delegator(wrapped, a, doc_from_class=doc_from_class, _call_stack_depth=2)
 
 
 CLS_SCOPE_KEYS = ("__module__",)
